@@ -3,7 +3,6 @@ package ir.fbscodes.rxandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -23,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Observable.just("tiger", "lion", "bear", "snack")
-                .observeOn(AndroidSchedulers.from(Looper.getMainLooper()))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
